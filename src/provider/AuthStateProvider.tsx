@@ -52,11 +52,11 @@ const AuthAuthStateProvider: React.FC<AuthAuthStateProviderProps> = ({
 
   console.log(value.isLoading, value.user);
   if (!value.isLoading && value.user != null && pathname === "/login") {
-    router.push("/home");
+    router.replace("/home");
     return null;
   }
   if (!value.isLoading && value.user == null && pathname !== "/login") {
-    router.push("/login");
+    router.replace("/login");
     return null;
   }
 
