@@ -1,6 +1,7 @@
 "use client";
 
 import { auth } from "@/lib/firebase";
+import { createUser } from "@/repo/user";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { usePathname, useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
@@ -41,16 +42,16 @@ const AuthAuthStateProvider: React.FC<AuthAuthStateProviderProps> = ({
   });
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user != null) {
         setValue({ isLoading: false, user, error: null });
+        await createUser(user);
       } else {
         setValue({ isLoading: false, user: null, error: true });
       }
     });
   }, []);
 
-  console.log(value.isLoading, value.user);
   if (!value.isLoading && value.user != null && pathname === "/login") {
     router.replace("/home");
     return null;
