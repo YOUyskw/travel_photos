@@ -3,7 +3,7 @@ export default function Page() {
     <>
       <div>
         <main className="m-20">
-          <div class="my-5">
+          <div className="my-5">
             <p className="font-bold text-2xl">行った場所 + 付近</p>
             <p className="text-zinc-500">日付 + 時間 + ?枚の写真</p>
           </div>
