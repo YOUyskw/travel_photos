@@ -1,20 +1,16 @@
 "use client";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
-import { Camera, CameraProps } from "react-camera-pro";
+import { Camera, CameraProps, CameraType } from "react-camera-pro";
 
 export default function Page() {
-  const camera =
-    useRef<
-      React.ForwardRefExoticComponent<
-        CameraProps & React.RefAttributes<unknown>
-      >
-    >(null);
-  const [image, setImage] = useState("");
+  const camera = useRef<CameraType>(null);
+  const [image, setImage] = useState<string>("");
   return (
     <>
       <Camera
         ref={camera}
+        aspectRatio="cover"
         errorMessages={{
           noCameraAccessible: undefined,
           permissionDenied: undefined,
@@ -22,7 +18,13 @@ export default function Page() {
           canvas: undefined,
         }}
       />
-      <button onClick={() => setImage(camera.current?.takePhoto())}>
+      <button
+        onClick={() => {
+          if (camera.current) {
+            setImage(camera.current?.takePhoto());
+          }
+        }}
+      >
         Take photo
       </button>
       <Image src={image} alt="Taken photo" />
