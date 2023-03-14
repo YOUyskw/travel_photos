@@ -6,7 +6,29 @@ export default async function Page() {
         過去のグループ一覧
       </h1>
       <h2 className="mx-2 pt-2 font-bold">グループA</h2>
-      <Image src="/IMG_4422.jpeg" alt="not found" width="414" height="896" />
+      <div className="overflow-x-scroll flex">
+        <Image
+          src="/IMG_4422.jpeg"
+          alt="not found"
+          width="414"
+          height="896"
+          className="p-4 rounded-3xl"
+        />
+        <Image
+          src="/IMG_4422.jpeg"
+          alt="not found"
+          width="414"
+          height="896"
+          className="p-4 rounded-3xl"
+        />
+        <Image
+          src="/IMG_4422.jpeg"
+          alt="not found"
+          width="414"
+          height="896"
+          className="p-4 rounded-3xl"
+        />
+      </div>
     </>
   );
 }
