@@ -9,6 +9,7 @@ const nextConfig = {
         hostname: "firebasestorage.googleapis.com",
       },
     ],
+    domains: ["firebasestorage.googleapis.com"],
   },
   experimental: {
     appDir: true,

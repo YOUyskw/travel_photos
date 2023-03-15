@@ -1,7 +1,16 @@
+"use client";
 import Image from "next/image";
 import Header from "@/components/Header";
+import { getPhoto } from "@/repo/photo";
+import { useEffect, useState } from "react";
 
-export default async function Page() {
+export default function Page() {
+  const [imageUrl, setImageUrl] = useState("");
+  useEffect(() => {
+    getPhoto("WUlZOnCsufIYp2z1p0ok", "0CdP_25P6Agek2w31ZK5N").then((res) => {
+      setImageUrl(res.downloadUrl);
+    });
+  });
   return (
     <>
       <Header />
@@ -13,7 +22,7 @@ export default async function Page() {
       <div className="overflow-x-scroll flex">
         <div className="relative shrink-0">
           <Image
-            src="/IMG_4422.jpeg"
+            src={imageUrl}
             alt="not found"
             width="414"
             height="896"
