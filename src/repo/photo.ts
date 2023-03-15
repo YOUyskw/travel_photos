@@ -57,10 +57,18 @@ export const getPhoto = async (groupId: string, photoId: string) => {
     doc(collection(doc(collection(db, "group"), groupId), "photo"), photoId)
   );
   const data = snapshot.data();
+
+  const snapshot2 = await getDoc(
+    doc(collection(db, "user"), "KL1eTfRwVFOZfxcgza5SWExlOHz2")
+  );
+  const user = snapshot2.data();
   return {
     address: data?.address as string,
     createdAt: data?.createdAt.toDate() as Date,
-    createdBy: data?.createdBy as string,
+    createdBy: user as {
+      name: string;
+      iconUrl: string;
+    },
     downloadUrl: data?.downloadUrl as string,
     location: data?.location as Location,
   };
