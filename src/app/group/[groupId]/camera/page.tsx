@@ -1,11 +1,10 @@
 "use client";
-import Image from "next/image";
+import { savePhoto } from "@/repo/photo";
 import React, { useRef, useState } from "react";
-import { Camera, CameraProps, CameraType } from "react-camera-pro";
+import { Camera, CameraType } from "react-camera-pro";
 
-export default function Page() {
+export default function Page({ params }: { params: { groupId: string } }) {
   const camera = useRef<CameraType>(null);
-  const [image, setImage] = useState<string>("");
   return (
     <div>
       <Camera
@@ -22,20 +21,36 @@ export default function Page() {
           <button
             onClick={() => {
               if (camera.current) {
-                setImage(camera.current?.takePhoto());
+                const image = camera.current?.takePhoto();
+                const groupId = params.groupId;
+                if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition((position) => {
+                    savePhoto({
+                      image: image,
+                      createdBy: "",
+                      location: {
+                        longitude: position.coords.longitude,
+                        latitude: position.coords.latitude,
+                      },
+                      groupId: groupId,
+                      address: "",
+                    });
+                  });
+                } else {
+                  savePhoto({
+                    image: image,
+                    createdBy: "",
+                    location: { latitude: 0, longitude: 0 },
+                    groupId: groupId,
+                    address: "",
+                  });
+                }
               }
             }}
             className="z-20 h-20 w-20 rounded-full border-black border-2 bg-white my-auto"
           />
         </div>
       </div>
-      <Image
-        className="z-20"
-        src={image}
-        alt="Taken photo"
-        width={20}
-        height={20}
-      />
     </div>
   );
 }
