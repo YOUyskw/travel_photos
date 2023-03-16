@@ -1,15 +1,24 @@
 import Header from "@/components/Header";
+import { getGroup } from "@/repo/group";
 import { FiShare } from "react-icons/fi";
 
-export default function Page() {
+type PageProps = {
+  params: { groupId: string };
+};
+
+export default async function Page({ params: { groupId } }: PageProps) {
+  const group = await getGroup(groupId);
+
   return (
     <>
       <Header />
       <main className="m-6 mt-20">
         <div className="relative my-5">
           <div>
-            <p className="text-2xl font-bold">アルバム名をここに</p>
-            <p className="text-zinc-400">?枚の写真・?人のメンバー</p>
+            <p className="text-2xl font-bold">{group.name}</p>
+            <p className="text-zinc-400">
+              ?枚の写真・{group.users.length}人のメンバー
+            </p>
           </div>
           <div className="absolute top-5 right-5">
             <FiShare />
