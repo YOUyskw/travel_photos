@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Image from "next/image";
 import { getGroup } from "@/repo/group";
 import { FiShare } from "react-icons/fi";
 
@@ -13,7 +14,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
     <>
       <Header />
       <main className="m-6 mt-20">
-        <div className="relative my-5">
+        <div className="relative mt-5">
           <div>
             <p className="text-2xl font-bold">{group.name}</p>
             <p className="text-zinc-400">
@@ -24,8 +25,25 @@ export default async function Page({ params: { groupId } }: PageProps) {
             <FiShare />
           </div>
         </div>
+        <div className="flex mt-2 mb-2 -space-x-2 border rounded-full border-zinc-300 w-max">
+          {group.users.map((user) => {
+            return (
+              <div key={user.iconUrl}>
+                <Image
+                  alt=""
+                  src={user.iconUrl}
+                  width={32}
+                  height={32}
+                  className="border-2 border-white rounded-full"
+                />
+              </div>
+            );
+          })}
+        </div>
 
-        <hr />
+        <hr
+          style={{ width: `calc(100% + 48px)`, transform: "translateX(-24px)" }}
+        />
 
         {/* 時間ごとの塊 */}
         <div className="px-5  bg-[url('../../public/timeline_border.png')] bg-cover mt-5">
