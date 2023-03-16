@@ -1,5 +1,6 @@
 "use client";
 import { savePhoto } from "@/repo/photo";
+import Link from "next/link";
 import React, { useRef, useState } from "react";
 import { Camera, CameraType } from "react-camera-pro";
 
@@ -16,7 +17,13 @@ export default function Page({ params }: { params: { groupId: string } }) {
           canvas: undefined,
         }}
       />
-      <div className="fixed flex justify-center bg-black bottom-0 w-full">
+      <div className="fixed flex justify-center items-center bg-black bottom-0 w-full">
+        <Link
+          href={`/group/${params.groupId}/home`}
+          className="left-0.5 text-white basis-1/4 mr-3"
+        >
+          キャンセル
+        </Link>
         <div className="w-24 h-24 z-20 rounded-full border border-black bg-white flex justify-center my-2">
           <button
             onClick={() => {
@@ -50,6 +57,7 @@ export default function Page({ params }: { params: { groupId: string } }) {
             className="z-20 h-20 w-20 rounded-full border-black border-2 bg-white my-auto"
           />
         </div>
+        <div className="basis-1/4" />
       </div>
     </div>
   );
