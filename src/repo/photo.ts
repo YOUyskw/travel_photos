@@ -62,6 +62,7 @@ export const getPhoto = async (groupId: string, photoId: string) => {
     doc(collection(doc(collection(db, "group"), groupId), "photo"), photoId)
   );
   const data = snapshot.data();
+  console.log(data);
 
   const snapshot2 = await getDoc(
     doc(collection(db, "user"), "KL1eTfRwVFOZfxcgza5SWExlOHz2")

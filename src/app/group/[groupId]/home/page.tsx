@@ -85,7 +85,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
             className="px-2  bg-[url('../../public/timeline_border2.png')] bg-cover"
           >
             {/* 場所と時間 */}
-            <div className="relative py-1 mx-10">
+            <div className="relative py-1 ml-10">
               {/* とりあえず1枚目の画像の情報を流用 */}
 
               <p className="text-zinc-400">
@@ -100,9 +100,13 @@ export default async function Page({ params: { groupId } }: PageProps) {
               </Link>
             </div>
 
-            <div className="flex py-5 ml-5 overflow-auto flex-nowrap">
+            <div className="flex py-3 ml-5 overflow-auto flex-nowrap w-[calc(100%+64px)] -translate-x-[52px]">
               {segment_album.map((photo, photo_index) => (
-                <div key={photo_index} className="mx-2 mb-5 shrink-0">
+                <Link
+                  key={photo_index}
+                  className="mx-2 mb-5 shrink-0 first:pl-[64px] last:pr-[32px]"
+                  href={`/group/${groupId}/photo/${photo.id}`}
+                >
                   <Image
                     src={photo.url}
                     alt={photo.location}
@@ -110,7 +114,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
                     height={48}
                     className="block object-cover w-64 h-48 rounded-md"
                   />
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -120,7 +124,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
         <div className="sticky bottom-0 text-white">
           <Link
             href={`/group/${groupId}/camera`}
-            className="absolute p-2 text-5xl bg-orange-500 border border-orange-500 rounded-full bottom-5 right-5"
+            className="absolute right-0 p-2 text-5xl bg-orange-400 border border-orange-400 rounded-full shadow-lg bottom-5"
           >
             <AiOutlineCamera />
           </Link>

@@ -12,6 +12,7 @@ export default async function Page({
   params: { groupId, photoId },
 }: PhotoDetailProps) {
   const photo = await getPhoto(groupId, photoId);
+  console.log(photo);
 
   return (
     <>
