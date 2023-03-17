@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import { getPhoto } from "@/repo/photo";
+import Image from "next/image";
 
 type PhotoDetailProps = {
   params: {
@@ -16,9 +17,18 @@ export default async function Page({
   return (
     <>
       <Header />
-      <div className="relative w-full max-w-lg pt-16 mx-auto">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={photo.downloadUrl} alt="" className="w-full" />
+      <div className="w-full max-w-lg pt-16 mx-auto">
+        <div className="relative">
+          <div className="absolute inset-0 overflow-hidden opacity-50 -z-10">
+            <Image src={photo.downloadUrl} alt="" fill className="blur-2xl" />
+          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={photo.downloadUrl}
+            alt=""
+            className="w-full object-contain max-h-[70vh] z-10"
+          />
+        </div>
         <div className="p-2 text-right text-gray-400">
           {photo.createdAt.toISOString().slice(0, 10).split("-").join("/")}{" "}
           {photo.createdAt.toISOString().slice(11, 16).split("-").join("/")}・

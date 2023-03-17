@@ -10,15 +10,23 @@ export default function Page({ params }: { params: { groupId: string } }) {
   const camera = useRef<CameraType>(null);
   const user = useUser();
   const [showOverlay, setShowOverlay] = useState(true);
+  const [preview, setPreview] = useState<string | null>(null);
+  const [previewShriked, setPreviewShrinked] = useState<boolean>(false);
+  const previewTimer = useRef<NodeJS.Timeout | null>(null);
 
   function handlePictureButtonClick() {
     setShowOverlay(false);
     setTimeout(() => setShowOverlay(true), 100); // set the delay time (in milliseconds) to adjust how long the black screen appears
+    previewTimer.current = setTimeout(() => {
+      setPreviewShrinked(false);
+      setPreview(null);
+    }, 3000);
   }
   const playShutterSound = () => {
     const audio = new Audio("/shutter-sound.mp3");
     audio.play();
   };
+
   return (
     <div className="bg-black">
       {showOverlay && (
@@ -32,7 +40,20 @@ export default function Page({ params }: { params: { groupId: string } }) {
           }}
         />
       )}
-      <div className="fixed bottom-0 flex items-center justify-center w-full bg-black px-2">
+      {preview != null && (
+        <div
+          className={
+            "absolute border-2 border-white/50 overflow-hidden transition-all " +
+            (previewShriked
+              ? "right-3 w-[64px] bottom-[120px] rounded"
+              : "inset-8 rounded-xl")
+          }
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={preview} alt="" />
+        </div>
+      )}
+      <div className="fixed bottom-0 flex items-center justify-center w-full px-2 bg-black">
         <Link
           href={`/group/${params.groupId}/home`}
           className="left-0.5 text-white basis-1/4 mr-3"
@@ -44,6 +65,12 @@ export default function Page({ params }: { params: { groupId: string } }) {
             onClick={() => {
               if (!camera.current || user == null) return;
               const image = camera.current?.takePhoto();
+
+              setPreview(image);
+              setPreviewShrinked(false);
+              if (previewTimer.current != null)
+                clearTimeout(previewTimer.current);
+              setTimeout(() => setPreviewShrinked(true), 1000);
               playShutterSound();
               const groupId = params.groupId;
               if (navigator.geolocation) {
@@ -74,12 +101,12 @@ export default function Page({ params }: { params: { groupId: string } }) {
           />
         </div>
         <button
-          className="basis-1/4 flex justify-center pl-8"
+          className="flex justify-center pl-8 basis-1/4"
           onClick={() => {
             camera.current?.switchCamera();
           }}
         >
-          <MdOutlineCameraswitch className="text-3xl" />
+          <MdOutlineCameraswitch className="text-3xl text-white/50" />
         </button>
       </div>
     </div>
