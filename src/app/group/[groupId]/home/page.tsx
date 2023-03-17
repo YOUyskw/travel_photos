@@ -4,6 +4,7 @@ import { getGroup } from "@/repo/group";
 import { FiShare } from "react-icons/fi";
 import { AiOutlineArrowRight } from "react-icons/ai"
 import { AiOutlineCamera } from "react-icons/ai"
+import Link from 'next/link';
 
 type PageProps = {
   params: { groupId: string };
@@ -164,7 +165,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
 
         {/* カメラへのリンク */}
         <div className="sticky bottom-0 text-white">
-          <a href="./camera" className="text-5xl absolute bottom-5 right-20 rounded-full border-orange-500 border p-2 bg-orange-500"><AiOutlineCamera /></a>
+          <Link href={`/group/${groupId}/camera`} className="text-5xl absolute bottom-5 right-20 rounded-full border-orange-500 border p-2 bg-orange-500"><AiOutlineCamera /></Link>
         </div>
       </main>
     </>
