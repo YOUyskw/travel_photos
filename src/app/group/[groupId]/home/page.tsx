@@ -1,12 +1,12 @@
 import Header from "@/components/Header";
 import Image from "next/image";
 import { getGroup } from "@/repo/group";
-import { FiShare } from "react-icons/fi";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { AiOutlineCamera } from "react-icons/ai";
 import Link from "next/link";
 import { getAlbums } from "@/repo/album";
 import ShareButton from "./ShareButton";
+import JoinGroup from "./JoinGroup";
 
 type PageProps = {
   params: { groupId: string };
@@ -54,7 +54,12 @@ export default async function Page({ params: { groupId } }: PageProps) {
         </div>
         <div className="relative mt-[140px]">
           <div>
-            <p className="text-2xl font-bold">{group.name}</p>
+            <p
+              className="text-2xl font-bold"
+              style={{ textShadow: "white 1px 0 10px" }}
+            >
+              {group.name}
+            </p>
             <p className="text-zinc-600">
               {countPhotos(albums)}枚の写真・{group.users.length}
               人のメンバー
@@ -62,7 +67,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
           </div>
           <ShareButton />
         </div>
-        <div className="relative flex mt-2 mb-4 -space-x-2 border rounded-full border-zinc-300 w-max">
+        <div className="relative flex mt-2 mb-4 -space-x-2 rounded-full w-max">
           {group.users.map((user) => {
             return (
               <div key={user.iconUrl}>
@@ -136,6 +141,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
           </Link>
         </div>
       </main>
+      <JoinGroup groupId={groupId} />
     </>
   );
 }
