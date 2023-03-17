@@ -14,12 +14,14 @@ const nextConfig = {
     ],
     domains: ["firebasestorage.googleapis.com"],
   },
-  rewrites: [
-    {
-      source: "/__/auth/:path*",
-      destination: "https://trip-timeline-28131.firebaseapp.com/:path*",
-    },
-  ],
+  rewrites: async () => ({
+    fallback: [
+      {
+        source: "/__/auth/:path*",
+        destination: "https://trip-timeline-28131.firebaseapp.com/:path*",
+      },
+    ],
+  }),
   experimental: {
     appDir: true,
   },
