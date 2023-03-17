@@ -3,13 +3,12 @@ import Header from "@/components/Header";
 import { createGroup } from "@/repo/group";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { async } from "@firebase/util";
 import { useUser } from "@/provider/AuthStateProvider";
 
 export default function Page() {
   const input = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const user = "";
+  const user = useUser();
   const [errorMessage, setErrorMessage] = useState("");
   if (!user)
     return (
@@ -19,7 +18,7 @@ export default function Page() {
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="stroke-current flex-shrink-0 h-6 w-6"
+              className="flex-shrink-0 w-6 h-6 stroke-current"
               fill="none"
               viewBox="0 0 24 24"
             >
@@ -48,7 +47,7 @@ export default function Page() {
             ref={input}
             type="text"
             placeholder="グループ名を入力してください"
-            className="input input-bordered w-full max-w-xs mb-10"
+            className="w-full max-w-xs mb-10 input input-bordered"
           />
           <button
             className="btn btn-error"
@@ -64,11 +63,11 @@ export default function Page() {
             完了
           </button>
           {errorMessage && (
-            <div className="alert alert-error shadow-lg fixed inset-x-0 top-5">
+            <div className="fixed inset-x-0 shadow-lg alert alert-error top-5">
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="stroke-current flex-shrink-0 h-6 w-6"
+                  className="flex-shrink-0 w-6 h-6 stroke-current"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
