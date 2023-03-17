@@ -69,21 +69,22 @@ export default async function Page({ params: { groupId } }: PageProps) {
 
         <hr
           style={{ width: `calc(100% + 48px)`, transform: "translateX(-24px)" }}
+          className="mb-2"
         />
 
         {/* mapでループさせる */}
         {/* 時間ごとの塊 */}
         {DUMMY_ALBUMS.map((segment_album, index) => 
-          <div key={index} className="px-2  bg-[url('../../public/timeline_border.png')] bg-cover mt-5">
+          <div key={index} className="px-2  bg-[url('../../public/timeline_border2.png')] bg-cover">
             {/* 場所と時間 */}
             <div className="py-1 mx-10 relative">
               {/* とりあえず1枚目の画像の情報を流用 */}
 
               <p className="text-zinc-400">{DateTransformer(segment_album[0].date)}</p>
               <p className="">{segment_album[0].location} 付近</p>
-              <a href={`./${index}`} className="absolute top-5 right-2">
+              <Link href={`./group/${groupId}/${index}`} className="absolute top-5 right-2">
                   <AiOutlineArrowRight />
-              </a>
+              </Link>
             </div>
             
 
