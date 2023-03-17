@@ -1,13 +1,9 @@
 "use client";
 import Image from "next/image";
 import Header from "@/components/Header";
-import { getPhoto } from "@/repo/photo";
 import { useUser } from "@/provider/AuthStateProvider";
-import { useEffect, useState } from "react";
 import { getGroupLatestPhoto, getGroups } from "../../repo/group";
 import useSWR from "swr";
-import { getAlbum } from "@/repo/album";
-import { group } from "console";
 import Link from "next/link";
 import { AiFillPlusCircle } from "react-icons/ai";
 
