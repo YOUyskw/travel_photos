@@ -30,31 +30,30 @@ export default function Page({ params }: { params: { groupId: string } }) {
         <div className="z-20 flex justify-center w-24 h-24 my-2 bg-white border border-black rounded-full">
           <button
             onClick={() => {
-              if (camera.current && user != null) {
-                const image = camera.current?.takePhoto();
-                const groupId = params.groupId;
-                if (navigator.geolocation) {
-                  navigator.geolocation.getCurrentPosition((position) => {
-                    savePhoto({
-                      image: image,
-                      createdBy: user.uid,
-                      location: {
-                        longitude: position.coords.longitude,
-                        latitude: position.coords.latitude,
-                      },
-                      groupId: groupId,
-                      address: "",
-                    });
-                  });
-                } else {
+              if (!camera.current || user == null) return;
+              const image = camera.current?.takePhoto();
+              const groupId = params.groupId;
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
                   savePhoto({
                     image: image,
                     createdBy: user.uid,
-                    location: { latitude: 0, longitude: 0 },
+                    location: {
+                      longitude: position.coords.longitude,
+                      latitude: position.coords.latitude,
+                    },
                     groupId: groupId,
                     address: "",
                   });
-                }
+                });
+              } else {
+                savePhoto({
+                  image: image,
+                  createdBy: user.uid,
+                  location: { latitude: 0, longitude: 0 },
+                  groupId: groupId,
+                  address: "",
+                });
               }
             }}
             className="z-20 w-20 h-20 my-auto bg-white border-2 border-black rounded-full"
