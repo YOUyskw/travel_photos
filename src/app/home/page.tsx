@@ -1,7 +1,34 @@
+"use client";
 import Image from "next/image";
 import Header from "@/components/Header";
+import { getPhoto } from "@/repo/photo";
+import { useUser } from "@/provider/AuthStateProvider";
+import { useEffect, useState } from "react";
+import { getGroups } from "../../repo/group";
 
-export default async function Page() {
+export default function Page() {
+  const user = useUser();
+  const [imageUrl, setImageUrl] = useState("");
+  const [imageDate, setImageDate] = useState(new Date());
+  const [group, setGroup] = useState<
+    {
+      name: string;
+      createdAt: Date;
+      users: {
+        name: string;
+        iconUrl: string;
+      }[];
+    }[]
+  >([]);
+  useEffect(() => {
+    getGroups(user ? user.uid : "").then((group) => {
+      setGroup(group);
+    });
+    getPhoto("WUlZOnCsufIYp2z1p0ok", "0CdP_25P6Agek2w31ZK5N").then((res) => {
+      setImageUrl(res.downloadUrl);
+      setImageDate(res.createdAt);
+    });
+  }, []);
   return (
     <>
       <Header />
@@ -10,81 +37,43 @@ export default async function Page() {
       </div>
       <h1 className="pt-10 pb-2 font-bold mx-2">過去のグループ一覧</h1>
       <h2 className="mx-2 pt-2 font-bold border-t-2">グループA</h2>
-      <div className="overflow-x-scroll flex">
-        <div className="relative shrink-0">
-          <Image
-            src="/IMG_4422.jpeg"
-            alt="not found"
-            width="414"
-            height="896"
-            className="rounded-3xl"
-          />
-          <div className="absolute top-6 left-6 text-4xl w-full right-6">
-            11月2日
-          </div>
+      <div className="relative">
+        <Image
+          src={imageUrl}
+          alt="not found"
+          width="414"
+          height="896"
+          className="rounded-3xl"
+        />
+        <div className="absolute top-6 left-6 text-4xl w-full right-6">
+          {imageDate.toDateString()}
         </div>
-        <Image
-          src="/IMG_4422.jpeg"
-          alt="not found"
-          width="414"
-          height="896"
-          className="p-4 rounded-3xl"
-        />
-        <Image
-          src="/IMG_4422.jpeg"
-          alt="not found"
-          width="414"
-          height="896"
-          className="p-4 rounded-3xl"
-        />
       </div>
       <h2 className="mx-2 pt-2 font-bold border-t-2">グループB</h2>
-      <div className="overflow-x-scroll flex">
+      <div className="relative">
         <Image
-          src="/IMG_4422.jpeg"
+          src={imageUrl}
           alt="not found"
           width="414"
           height="896"
-          className="p-4 rounded-3xl"
+          className="rounded-3xl"
         />
-        <Image
-          src="/IMG_4422.jpeg"
-          alt="not found"
-          width="414"
-          height="896"
-          className="p-4 rounded-3xl"
-        />
-        <Image
-          src="/IMG_4422.jpeg"
-          alt="not found"
-          width="414"
-          height="896"
-          className="p-4 rounded-3xl"
-        />
+        <div className="absolute top-6 left-6 text-4xl w-full right-6">
+          {imageDate.toDateString()}
+        </div>
       </div>
       <h2 className="mx-2 pt-2 font-bold border-t-2">グループC</h2>
-      <div className="overflow-x-scroll flex">
+      <div className="relative">
         <Image
-          src="/IMG_4422.jpeg"
+          src={imageUrl}
           alt="not found"
           width="414"
           height="896"
-          className="p-4 rounded-3xl"
+          className="rounded-3xl"
         />
-        <Image
-          src="/IMG_4422.jpeg"
-          alt="not found"
-          width="414"
-          height="896"
-          className="p-4 rounded-3xl"
-        />
-        <Image
-          src="/IMG_4422.jpeg"
-          alt="not found"
-          width="414"
-          height="896"
-          className="p-4 rounded-3xl"
-        />
+        <div className="absolute top-6 left-6 text-4xl w-full right-6">
+          11月2日
+        </div>
       </div>
     </>
   );
