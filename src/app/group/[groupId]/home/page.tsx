@@ -11,6 +11,17 @@ type PageProps = {
   params: { groupId: string };
 };
 
+// 日付フォーマット
+function DateTransformer(date_string: string) {
+  const date = new Date(date_string);
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const formattedDate = `${month < 10 ? "0" : ""}${month}/${day < 10 ? "0" : ""}${day} ${hours < 10 ? "0" : ""}${hours}:${minutes < 10 ? "0" : ""}${minutes}`;
+  return formattedDate
+}
+
 export default async function Page({ params: { groupId } }: PageProps) {
   const group = await getGroup(groupId);
 
@@ -51,27 +62,25 @@ export default async function Page({ params: { groupId } }: PageProps) {
 
         {/* mapでループさせる */}
         {/* 時間ごとの塊 */}
-        {DUMMY_ALBUMS.map((segment_album) => 
-          <div className="px-5  bg-[url('../../public/timeline_border.png')] bg-cover mt-5">
+        {DUMMY_ALBUMS.map((segment_album, index) => 
+          <div className="px-2  bg-[url('../../public/timeline_border.png')] bg-cover mt-5">
             {/* 場所と時間 */}
-            <div className="py-1 mx-10">
+            <div className="py-1 mx-10 relative">
               {/* とりあえず1枚目の画像の情報を流用 */}
 
-              <p className="text-zinc-400">{segment_album[0].date}</p>
+              <p className="text-zinc-400">{DateTransformer(segment_album[0].date)}</p>
               <p className="">{segment_album[0].location} 付近</p>
-              <a href="./2" className="absolute top-5 right-0">
+              <a href={`./${index}`} className="absolute top-5 right-2">
                   <AiOutlineArrowRight />
               </a>
             </div>
-            
-            
             
 
             <div className="flex py-5 ml-5 overflow-auto flex-nowrap">
               {segment_album.map(
                 (photo) =>
                 
-                <div className="mx-5 mb-5 shrink-0">
+                <div className="mx-2 mb-5 shrink-0">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={photo.url}
