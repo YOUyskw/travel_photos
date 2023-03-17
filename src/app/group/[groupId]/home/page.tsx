@@ -1,20 +1,18 @@
 import Header from "@/components/Header";
 import Image from "next/image";
 import { getGroup } from "@/repo/group";
-import { DUMMY_ALBUMS } from "@/repo/dummy";
 import { FiShare } from "react-icons/fi";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { AiOutlineCamera } from "react-icons/ai";
 import Link from "next/link";
-import { useScrollUI } from "@/lib/useScroll";
+import { getAlbums } from "@/repo/album";
 
 type PageProps = {
   params: { groupId: string };
 };
 
 // 日付フォーマット
-function DateTransformer(date_string: string) {
-  const date = new Date(date_string);
+function DateTransformer(date: Date) {
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const hours = date.getHours();
@@ -40,6 +38,8 @@ function countPhotos(albums: any[]) {
 
 export default async function Page({ params: { groupId } }: PageProps) {
   const group = await getGroup(groupId);
+  const albums = await getAlbums(groupId);
+
   return (
     <>
       <Header />
@@ -48,7 +48,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
           <div>
             <p className="text-2xl font-bold">{group.name}</p>
             <p className="text-zinc-400">
-              {countPhotos(DUMMY_ALBUMS)}枚の写真・{group.users.length}
+              {countPhotos(albums)}枚の写真・{group.users.length}
               人のメンバー
             </p>
           </div>
@@ -79,7 +79,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
 
         {/* mapでループさせる */}
         {/* 時間ごとの塊 */}
-        {DUMMY_ALBUMS.map((segment_album, index) => (
+        {albums.map((segment_album, index) => (
           <div
             key={index}
             className="px-2  bg-[url('../../public/timeline_border2.png')] bg-cover"
@@ -89,9 +89,9 @@ export default async function Page({ params: { groupId } }: PageProps) {
               {/* とりあえず1枚目の画像の情報を流用 */}
 
               <p className="text-zinc-400">
-                {DateTransformer(segment_album[0].date)}
+                {DateTransformer(segment_album[0].createdAt)}
               </p>
-              <p className="">{segment_album[0].location} 付近</p>
+              <p className="">{segment_album[0].location_name} 付近</p>
               <Link
                 href={`./group/${groupId}/${index}`}
                 className="absolute top-5 right-2"
@@ -108,8 +108,8 @@ export default async function Page({ params: { groupId } }: PageProps) {
                   href={`/group/${groupId}/photo/${photo.id}`}
                 >
                   <Image
-                    src={photo.url}
-                    alt={photo.location}
+                    src={photo.downloadUrl}
+                    alt=""
                     width={64}
                     height={48}
                     className="block object-cover w-64 h-48 rounded-md"

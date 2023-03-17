@@ -4,8 +4,7 @@ import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import { setDoc } from "firebase/firestore";
 import { nanoid } from "nanoid";
 
-const GROUPING_API_ENDPOINT =
-  process.env.NEXT_PUBLIC_GROUPING_API_ENDPOINT ?? "http://localhost:5000";
+const GROUPING_API_ENDPOINT = process.env.NEXT_PUBLIC_GROUPING_API_ENDPOINT;
 
 type Location = {
   longitude: number;
@@ -46,7 +45,9 @@ export const savePhoto = async ({
     }
   );
 
-  //await fetch(GROUPING_API_ENDPOINT);
+  if (GROUPING_API_ENDPOINT != null) {
+    await fetch(`${GROUPING_API_ENDPOINT}/grouping?group_id=${groupId}`);
+  }
 
   return id;
 };
