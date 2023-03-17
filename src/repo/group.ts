@@ -56,10 +56,12 @@ export const getGroup = async (groupId: string) => {
   );
 
   return {
+    id: snapshot.id,
     name: data?.name,
     createdAt: data?.createdAt.toDate(),
     users,
   } as {
+    id: string;
     name: string;
     createdAt: Date;
     users: {
@@ -86,18 +88,24 @@ export const getGroups = async (userId: string) => {
       const users = await Promise.all(
         data?.users.map(async (userRef: any) => {
           const snapshot = await getDoc(userRef);
-          return snapshot.data();
+          return {
+            id: snapshot.id,
+            ...(snapshot.data() ?? {}),
+          };
         }) ?? []
       );
 
       return {
+        id: snapshot.id,
         name: data?.name,
         createdAt: data?.createdAt.toDate(),
         users,
       } as {
+        id: string;
         name: string;
         createdAt: Date;
         users: {
+          id: string;
           name: string;
           iconUrl: string;
         }[];
