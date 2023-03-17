@@ -1,13 +1,9 @@
 "use client";
 import Image from "next/image";
 import Header from "@/components/Header";
-import { getPhoto } from "@/repo/photo";
 import { useUser } from "@/provider/AuthStateProvider";
-import { useEffect, useState } from "react";
 import { getGroupLatestPhoto, getGroups } from "../../repo/group";
 import useSWR from "swr";
-import { getAlbum } from "@/repo/album";
-import { group } from "console";
 import Link from "next/link";
 import { AiFillPlusCircle } from "react-icons/ai";
 
@@ -32,39 +28,38 @@ export default function Page() {
   return (
     <>
       <Header />
-      <div className="pt-[64px]">
-        <h1>home</h1>
-      </div>
-      <h1 className="pt-10 pb-2 font-bold mx-2">過去のグループ一覧</h1>
-      {photos &&
-        photos?.map((photo, idx) => {
-          if (!photo.photo) return;
-          return (
-            <Link href={`group/${photo.groupId}/home`} key={idx}>
-              <h2 className="mx-2 pt-2 font-bold border-t-2">
-                {photo.groupName}
-              </h2>
-              <div className="relative">
-                <Image
-                  src={photo.photo.downloadUrl}
-                  alt="not found"
-                  width="414"
-                  height="896"
-                  className="rounded-3xl"
-                />
-                <div className="absolute top-6 left-6 text-4xl w-full right-6">
-                  {photo.photo.createdAt.toDateString()}
+      <div className="mx-3 mt-[64px]">
+        <h1 className="pt-5 pb-2 font-bold mx-2 border-b-2 text-xl">
+          過去のグループ一覧
+        </h1>
+        {photos &&
+          photos?.map((photo, idx) => {
+            if (!photo.photo) return;
+            return (
+              <Link href={`group/${photo.groupId}/home`} key={idx}>
+                <h2 className="mx-2 py-2 font-bold">{photo.groupName}</h2>
+                <div className="relative">
+                  <Image
+                    src={photo.photo.downloadUrl}
+                    alt="not found"
+                    width="380"
+                    height="380"
+                    className="rounded-3xl mb-2 aspect-square object-cover"
+                  />
+                  <div className="absolute top-6 left-6 text-4xl right-6">
+                    {photo.photo.createdAt.toDateString()}
+                  </div>
                 </div>
-              </div>
-            </Link>
-          );
-        })}
-      <Link
-        href={`/create`}
-        className="fixed text-white text-5xl bottom-5 right-8 rounded-full border-orange-500 border p-2 bg-orange-500"
-      >
-        <AiFillPlusCircle />
-      </Link>
+              </Link>
+            );
+          })}
+        <Link
+          href={`/create`}
+          className="fixed text-white text-5xl bottom-5 right-8 rounded-full border-orange-500 border p-2 bg-orange-500"
+        >
+          <AiFillPlusCircle />
+        </Link>
+      </div>
     </>
   );
 }
