@@ -10,6 +10,7 @@ import {
   getDocs,
   where,
   query,
+  orderBy,
 } from "firebase/firestore";
 
 /**
@@ -113,4 +114,31 @@ export const getGroups = async (userId: string) => {
     })
   );
   return groups;
+};
+
+/**
+ * グループの最新の写真一枚取得する
+ * @param groupId グループID
+ * @returns グループの最新の写真一枚のデータ
+ */
+export const getGroupLatestPhoto = async (groupId: string) => {
+  const q = query(
+    collection(db, "group", groupId, "photo"),
+    orderBy("createdAt", "desc")
+  );
+
+  const snapshots = await getDocs(q);
+  if (snapshots.docs.length === 0) return;
+  const data = snapshots.docs[0].data();
+  return {
+    id: snapshots.docs[0].id,
+    createdAt: data?.createdAt.toDate(),
+    createdBy: data?.createdBy,
+    downloadUrl: data?.downloadUrl,
+  } as {
+    id: string;
+    createdAt: Date;
+    createdBy: string;
+    downloadUrl: string;
+  };
 };

@@ -46,7 +46,7 @@ export const savePhoto = async ({
     }
   );
 
-  await fetch(GROUPING_API_ENDPOINT);
+  //await fetch(GROUPING_API_ENDPOINT);
 
   return id;
 };
