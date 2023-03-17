@@ -16,7 +16,6 @@ export default function Page() {
   const { data: groups } = useSWR("user.uid", () => {
     return getGroups(user ? user.uid : "");
   });
-  console.log("start");
   const { data: photos, error } = useSWR(
     groups == null ? null : ["group", groups],
     async () => {
@@ -25,12 +24,11 @@ export default function Page() {
       return Promise.all(
         groups.map(async (group) => {
           const photo = await getGroupLatestPhoto(group.id);
-          return { name: group.name, photo };
+          return { groupName: group.name, groupId: group.id, photo };
         })
       );
     }
   );
-  console.log(error);
   return (
     <>
       <Header />
@@ -42,8 +40,10 @@ export default function Page() {
         photos?.map((photo, idx) => {
           if (!photo.photo) return;
           return (
-            <div key={idx}>
-              <h2 className="mx-2 pt-2 font-bold border-t-2">{photo.name}</h2>
+            <Link href={`group/${photo.groupId}/home`} key={idx}>
+              <h2 className="mx-2 pt-2 font-bold border-t-2">
+                {photo.groupName}
+              </h2>
               <div className="relative">
                 <Image
                   src={photo.photo.downloadUrl}
@@ -56,7 +56,7 @@ export default function Page() {
                   {photo.photo.createdAt.toDateString()}
                 </div>
               </div>
-            </div>
+            </Link>
           );
         })}
       <Link
