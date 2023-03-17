@@ -49,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({
           <FiChevronLeft size={24} />
         </button>
       )}
-      <Link href="/home">Trip Timeline</Link>
+      <Link href="/home">Trip Timeline ✈️</Link>
       {user != null && (
         <div className="m-4 dropdown dropdown-bottom dropdown-end">
           <label tabIndex={0} className="cursor-pointer hover:opacity-80">

@@ -37,11 +37,12 @@ export default function Page() {
   return (
     <div>
       <Header />
-      <div className="mx-5">
-        <h2 className="pt-[64px] pb-5 border-b-4 mb-10">
+      <div className="mx-5 mt-10">
+        <h2 className="pt-[64px] text-xl font-bold">
           新しい旅行グループを作成
         </h2>
-        <p className="mb-10">旅行の名前</p>
+        <hr className="w-[calc(100%+40px)] my-4 -translate-x-[20px]" />
+        <p className="mt-6 mb-2">旅行の名前</p>
         <div className="flex flex-col">
           <input
             ref={input}
