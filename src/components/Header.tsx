@@ -32,7 +32,7 @@ const Header: React.FC = () => {
       <button className="p-4" onClick={() => router.back()}>
         <FiChevronLeft size={24} />
       </button>
-      <Link href="/home">Travel Timeline</Link>
+      <Link href="/home">Trip Timeline</Link>
       {user != null && (
         <div className="m-4 dropdown dropdown-bottom dropdown-end">
           <label tabIndex={0} className="cursor-pointer hover:opacity-80">
