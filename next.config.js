@@ -16,8 +16,8 @@ const nextConfig = {
   },
   rewrites: [
     {
-      source: "/__/auth/**",
-      destination: "https://trip-timeline-28131.firebaseapp.com",
+      source: "/__/auth/:path*",
+      destination: "https://trip-timeline-28131.firebaseapp.com/:path*",
     },
   ],
   experimental: {
