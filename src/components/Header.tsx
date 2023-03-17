@@ -3,14 +3,23 @@
 import { useUser } from "@/provider/AuthStateProvider";
 import React from "react";
 import Image from "next/image";
-import { FiChevronLeft } from "react-icons/fi";
+import { FiChevronLeft, FiHome } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useScrollUI } from "@/lib/useScroll";
 import Link from "next/link";
+import { MdHome, MdHomeFilled, MdOutlineAddHome } from "react-icons/md";
 
-const Header: React.FC = () => {
+export type HeaderProps = {
+  showHomeInstead?: boolean;
+  hideBack?: boolean;
+};
+
+const Header: React.FC<HeaderProps> = ({
+  showHomeInstead = false,
+  hideBack = false,
+}) => {
   const router = useRouter();
 
   const user = useUser();
@@ -29,9 +38,17 @@ const Header: React.FC = () => {
         (!showHeader ? "shadow-header h-12" : "h-16")
       }
     >
-      <button className="p-4" onClick={() => router.back()}>
-        <FiChevronLeft size={24} />
-      </button>
+      {hideBack ? (
+        <div className="w-8 h-8" />
+      ) : showHomeInstead ? (
+        <Link href="/home" className="p-4">
+          <FiHome size={20} />
+        </Link>
+      ) : (
+        <button className="p-4" onClick={() => router.back()}>
+          <FiChevronLeft size={24} />
+        </button>
+      )}
       <Link href="/home">Trip Timeline</Link>
       {user != null && (
         <div className="m-4 dropdown dropdown-bottom dropdown-end">

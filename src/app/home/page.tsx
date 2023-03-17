@@ -28,7 +28,7 @@ export default function Page() {
   );
   return (
     <>
-      <Header />
+      <Header hideBack />
       <div className="mt-[64px] px-3 flex flex-col w-full">
         <h1 className="pb-2 mx-2 mt-10 text-2xl font-bold">旅行の思い出</h1>
         <hr className="w-[calc(100%+24px)] -translate-x-3 my-2" />

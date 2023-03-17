@@ -41,14 +41,14 @@ export default async function Page({ params: { groupId } }: PageProps) {
 
   return (
     <>
-      <Header />
+      <Header showHomeInstead />
       <main className="m-6 mt-20">
         <div className="absolute inset-0 h-[240px]">
           <Image
             src={albums[0][0].downloadUrl}
             alt=""
             fill
-            className="object-cover blur-sm"
+            className="object-cover"
           />
           <div className="absolute inset-0 from-black/20 via-transparent to-white bg-gradient-to-b" />
         </div>
