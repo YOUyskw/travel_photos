@@ -43,7 +43,6 @@ export default function Page({ params }: { params: { groupId: string } }) {
             onClick={() => {
               if (!camera.current || user == null) return;
               const image = camera.current?.takePhoto();
-              handlePictureButtonClick();
               playShutterSound();
               const groupId = params.groupId;
               if (navigator.geolocation) {
@@ -68,6 +67,7 @@ export default function Page({ params }: { params: { groupId: string } }) {
                   address: "",
                 });
               }
+              handlePictureButtonClick();
             }}
             className="z-20 w-20 h-20 my-auto bg-white border-2 border-black rounded-full active:bg-gray-400"
           />
