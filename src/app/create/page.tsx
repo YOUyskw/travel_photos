@@ -53,7 +53,10 @@ export default function Page() {
             className="btn btn-error"
             onClick={async () => {
               if (input.current?.value) {
-                const groupId = await createGroup(input.current?.value, "");
+                const groupId = await createGroup(
+                  input.current?.value,
+                  user.uid
+                );
                 router.push(`/group/${groupId}/camera`);
               } else {
                 setErrorMessage("入力名が空欄です。");
