@@ -12,10 +12,14 @@ export default function Page({ params }: { params: { groupId: string } }) {
 
   function handlePictureButtonClick() {
     setShowOverlay(false);
-    setTimeout(() => setShowOverlay(true), 500); // set the delay time (in milliseconds) to adjust how long the black screen appears
+    setTimeout(() => setShowOverlay(true), 100); // set the delay time (in milliseconds) to adjust how long the black screen appears
   }
+  const playShutterSound = () => {
+    const audio = new Audio("/shutter-sound.mp3");
+    audio.play();
+  };
   return (
-    <div>
+    <div className="bg-black">
       {showOverlay && (
         <Camera
           ref={camera}
@@ -40,6 +44,7 @@ export default function Page({ params }: { params: { groupId: string } }) {
               if (!camera.current || user == null) return;
               const image = camera.current?.takePhoto();
               handlePictureButtonClick();
+              playShutterSound();
               const groupId = params.groupId;
               if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
