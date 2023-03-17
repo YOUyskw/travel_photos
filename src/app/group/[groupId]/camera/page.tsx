@@ -4,6 +4,7 @@ import { savePhoto } from "@/repo/photo";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
 import { Camera, CameraType } from "react-camera-pro";
+import { MdOutlineCameraswitch } from "react-icons/md";
 
 export default function Page({ params }: { params: { groupId: string } }) {
   const camera = useRef<CameraType>(null);
@@ -27,46 +28,48 @@ export default function Page({ params }: { params: { groupId: string } }) {
         >
           キャンセル
         </Link>
-        <div className="z-20 flex justify-center w-24 h-24 my-2 bg-white border border-black rounded-full">
-          <button
-            onClick={() => {
-              if (!camera.current || user == null) return;
-              const image = camera.current?.takePhoto();
-              const groupId = params.groupId;
-              if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
+        <div className="basis-1/2">
+          <div className="z-20 flex justify-center w-24 h-24 my-2 bg-white border border-black rounded-full">
+            <button
+              onClick={() => {
+                if (!camera.current || user == null) return;
+                const image = camera.current?.takePhoto();
+                const groupId = params.groupId;
+                if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition((position) => {
+                    savePhoto({
+                      image: image,
+                      createdBy: user.uid,
+                      location: {
+                        longitude: position.coords.longitude,
+                        latitude: position.coords.latitude,
+                      },
+                      groupId: groupId,
+                      address: "",
+                    });
+                  });
+                } else {
                   savePhoto({
                     image: image,
                     createdBy: user.uid,
-                    location: {
-                      longitude: position.coords.longitude,
-                      latitude: position.coords.latitude,
-                    },
+                    location: { latitude: 0, longitude: 0 },
                     groupId: groupId,
                     address: "",
                   });
-                });
-              } else {
-                savePhoto({
-                  image: image,
-                  createdBy: user.uid,
-                  location: { latitude: 0, longitude: 0 },
-                  groupId: groupId,
-                  address: "",
-                });
-              }
-            }}
-            className="z-20 w-20 h-20 my-auto bg-white border-2 border-black rounded-full"
-          />
+                }
+              }}
+              className="z-20 w-20 h-20 my-auto bg-white border-2 border-black rounded-full"
+            />
+          </div>
         </div>
         <button
+          className="basis-1/4 flex justify-center"
           onClick={() => {
             camera.current?.switchCamera();
           }}
         >
-          aaaa
+          <MdOutlineCameraswitch className="text-center" />
         </button>
-        <div className="basis-1/4" />
       </div>
     </div>
   );
