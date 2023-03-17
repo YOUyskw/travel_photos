@@ -5,30 +5,18 @@ import { getPhoto } from "@/repo/photo";
 import { useUser } from "@/provider/AuthStateProvider";
 import { useEffect, useState } from "react";
 import { getGroups } from "../../repo/group";
+import useSWR from "swr";
 
 export default function Page() {
   const user = useUser();
-  const [imageUrl, setImageUrl] = useState("");
   const [imageDate, setImageDate] = useState(new Date());
-  const [group, setGroup] = useState<
-    {
-      name: string;
-      createdAt: Date;
-      users: {
-        name: string;
-        iconUrl: string;
-      }[];
-    }[]
-  >([]);
-  useEffect(() => {
-    getGroups(user ? user.uid : "").then((group) => {
-      setGroup(group);
-    });
-    getPhoto("WUlZOnCsufIYp2z1p0ok", "0CdP_25P6Agek2w31ZK5N").then((res) => {
-      setImageUrl(res.downloadUrl);
-      setImageDate(res.createdAt);
-    });
-  }, []);
+  const { data: groups } = useSWR("user.uid", () => {
+    return getGroups(user ? user.uid : "");
+  });
+  const photos = groups ? groups.map((group)=>{
+    return useSWR("group", getPhoto())
+  }: [])
+
   return (
     <>
       <Header />
