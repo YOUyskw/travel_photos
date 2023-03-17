@@ -59,6 +59,13 @@ export default function Page({ params }: { params: { groupId: string } }) {
             className="z-20 w-20 h-20 my-auto bg-white border-2 border-black rounded-full"
           />
         </div>
+        <button
+          onClick={() => {
+            camera.current?.switchCamera();
+          }}
+        >
+          aaaa
+        </button>
         <div className="basis-1/4" />
       </div>
     </div>
