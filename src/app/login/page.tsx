@@ -1,10 +1,7 @@
 "use client";
 
 import { auth } from "@/lib/firebase";
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useCallback } from "react";
 
 const googleProvider = new GoogleAuthProvider();
@@ -19,7 +16,7 @@ export default function Page() {
       <h1 className="mt-[160px] text-2xl font-bold">Trip Timeline</h1>
       <button
         onClick={login}
-        className="fixed py-2 text-sm text-gray-900 border border-gray-200 rounded-full border-rounded bottom-10 inset-x-10"
+        className="fixed py-2 text-sm normal-case border border-gray-200 rounded-full btn border-rounded bottom-10 inset-x-10"
       >
         Googleでログイン
       </button>

@@ -6,6 +6,7 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { AiOutlineCamera } from "react-icons/ai";
 import Link from "next/link";
 import { getAlbums } from "@/repo/album";
+import ShareButton from "./ShareButton";
 
 type PageProps = {
   params: { groupId: string };
@@ -17,9 +18,7 @@ function DateTransformer(date: Date) {
   const day = date.getDate();
   const hours = date.getHours();
   const minutes = date.getMinutes();
-  const formattedDate = `${month < 10 ? "0" : ""}${month}/${
-    day < 10 ? "0" : ""
-  }${day} ${hours < 10 ? "0" : ""}${hours}:${
+  const formattedDate = `${month}/${day} ${hours < 10 ? "0" : ""}${hours}:${
     minutes < 10 ? "0" : ""
   }${minutes}`;
   return formattedDate;
@@ -44,19 +43,26 @@ export default async function Page({ params: { groupId } }: PageProps) {
     <>
       <Header />
       <main className="m-6 mt-20">
-        <div className="relative mt-5">
+        <div className="absolute inset-0 h-[240px]">
+          <Image
+            src={albums[0][0].downloadUrl}
+            alt=""
+            fill
+            className="object-cover blur-sm"
+          />
+          <div className="absolute inset-0 from-black/20 via-transparent to-white bg-gradient-to-b" />
+        </div>
+        <div className="relative mt-[140px]">
           <div>
             <p className="text-2xl font-bold">{group.name}</p>
-            <p className="text-zinc-400">
+            <p className="text-zinc-600">
               {countPhotos(albums)}枚の写真・{group.users.length}
               人のメンバー
             </p>
           </div>
-          <div className="absolute top-5 right-5">
-            <FiShare />
-          </div>
+          <ShareButton />
         </div>
-        <div className="flex mt-2 mb-2 -space-x-2 border rounded-full border-zinc-300 w-max">
+        <div className="relative flex mt-2 mb-4 -space-x-2 border rounded-full border-zinc-300 w-max">
           {group.users.map((user) => {
             return (
               <div key={user.iconUrl}>
@@ -100,7 +106,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
               </Link>
             </div>
 
-            <div className="flex py-3 ml-5 overflow-auto flex-nowrap w-[calc(100%+64px)] -translate-x-[52px]">
+            <div className="flex pb-3 ml-5 overflow-auto flex-nowrap w-[calc(100%+64px)] -translate-x-[52px]">
               {segment_album.map((photo, photo_index) => (
                 <Link
                   key={photo_index}
@@ -121,10 +127,10 @@ export default async function Page({ params: { groupId } }: PageProps) {
         ))}
 
         {/* カメラへのリンク */}
-        <div className="sticky bottom-0 text-white">
+        <div className="fixed text-white bottom-2 right-4">
           <Link
             href={`/group/${groupId}/camera`}
-            className="absolute right-0 p-2 text-5xl bg-orange-400 border border-orange-400 rounded-full shadow-lg bottom-5"
+            className="absolute right-0 p-2 text-5xl transition bg-orange-400 border border-orange-400 rounded-full shadow-lg active:scale-90 active:bg-orange-500 bottom-5"
           >
             <AiOutlineCamera />
           </Link>
