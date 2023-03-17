@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Image from "next/image";
 import { getGroup } from "@/repo/group";
+import { DUMMY_ALBUMS } from "@/repo/dummy"
 import { FiShare } from "react-icons/fi";
 import { AiOutlineArrowRight } from "react-icons/ai"
 import { AiOutlineCamera } from "react-icons/ai"
