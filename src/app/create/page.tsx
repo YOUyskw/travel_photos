@@ -41,12 +41,12 @@ export default function Page() {
         <h2 className="pt-[64px] pb-5 border-b-4 mb-10">
           新しい旅行グループを作成
         </h2>
-        <p className="mb-10">グループ名</p>
+        <p className="mb-10">旅行の名前</p>
         <div className="flex flex-col">
           <input
             ref={input}
             type="text"
-            placeholder="グループ名を入力してください"
+            placeholder="例）北海道旅行 いつめん卒業旅行 etc..."
             className="w-full max-w-xs mb-10 input input-bordered"
           />
           <button
