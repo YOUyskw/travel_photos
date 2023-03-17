@@ -6,6 +6,7 @@ import { FiShare } from "react-icons/fi";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { AiOutlineCamera } from "react-icons/ai";
 import Link from "next/link";
+import { useScrollUI } from "@/lib/useScroll";
 
 type PageProps = {
   params: { groupId: string };
@@ -39,7 +40,6 @@ function countPhotos(albums: any[]) {
 
 export default async function Page({ params: { groupId } }: PageProps) {
   const group = await getGroup(groupId);
-
   return (
     <>
       <Header />

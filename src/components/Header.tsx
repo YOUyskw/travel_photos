@@ -7,6 +7,7 @@ import { FiChevronLeft } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
+import { useScrollUI } from "@/lib/useScroll";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -18,8 +19,15 @@ const Header: React.FC = () => {
     router.push("/login");
   };
 
+  const showHeader = useScrollUI();
+
   return (
-    <header className="fixed inset-x-0 top-0 z-30 flex items-center justify-between h-16 bg-white">
+    <header
+      className={
+        "fixed inset-x-0 top-0 z-30 flex items-center justify-between h-16 bg-white " +
+        (!showHeader ? "shadow-header" : "")
+      }
+    >
       <button className="p-4" onClick={() => router.back()}>
         <FiChevronLeft size={24} />
       </button>
