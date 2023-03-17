@@ -1,15 +1,17 @@
 "use client";
 
-import Header from "@/components/Header";
 import { auth } from "@/lib/firebase";
-import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { useCallback } from "react";
 
 const googleProvider = new GoogleAuthProvider();
 
 export default function Page() {
   const login = useCallback(async () => {
-    await signInWithRedirect(auth, googleProvider);
+    await signInWithPopup(auth, googleProvider);
   }, []);
 
   return (

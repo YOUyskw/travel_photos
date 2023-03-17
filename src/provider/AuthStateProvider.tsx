@@ -2,7 +2,7 @@
 
 import { auth } from "@/lib/firebase";
 import { createUser } from "@/repo/user";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { getRedirectResult, onAuthStateChanged, User } from "firebase/auth";
 import { usePathname, useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
@@ -43,6 +43,7 @@ const AuthAuthStateProvider: React.FC<AuthAuthStateProviderProps> = ({
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
+      console.log("user = ", user);
       if (user != null) {
         setValue({ isLoading: false, user, error: null });
         await createUser(user);
