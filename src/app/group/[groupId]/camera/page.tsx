@@ -8,18 +8,25 @@ import { Camera, CameraType } from "react-camera-pro";
 export default function Page({ params }: { params: { groupId: string } }) {
   const camera = useRef<CameraType>(null);
   const user = useUser();
+  const [showOverlay, setShowOverlay] = useState(true);
 
+  function handlePictureButtonClick() {
+    setShowOverlay(false);
+    setTimeout(() => setShowOverlay(true), 500); // set the delay time (in milliseconds) to adjust how long the black screen appears
+  }
   return (
     <div>
-      <Camera
-        ref={camera}
-        errorMessages={{
-          noCameraAccessible: undefined,
-          permissionDenied: undefined,
-          switchCamera: undefined,
-          canvas: undefined,
-        }}
-      />
+      {showOverlay && (
+        <Camera
+          ref={camera}
+          errorMessages={{
+            noCameraAccessible: undefined,
+            permissionDenied: undefined,
+            switchCamera: undefined,
+            canvas: undefined,
+          }}
+        />
+      )}
       <div className="fixed bottom-0 flex items-center justify-center w-full bg-black">
         <Link
           href={`/group/${params.groupId}/home`}
@@ -32,6 +39,7 @@ export default function Page({ params }: { params: { groupId: string } }) {
             onClick={() => {
               if (!camera.current || user == null) return;
               const image = camera.current?.takePhoto();
+              handlePictureButtonClick();
               const groupId = params.groupId;
               if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
