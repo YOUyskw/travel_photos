@@ -56,7 +56,7 @@ export default function Page({ params }: { params: { groupId: string } }) {
                 });
               }
             }}
-            className="z-20 w-20 h-20 my-auto bg-white border-2 border-black rounded-full"
+            className="z-20 w-20 h-20 my-auto bg-white border-2 border-black rounded-full active:bg-gray-400"
           />
         </div>
         <div className="basis-1/4" />
