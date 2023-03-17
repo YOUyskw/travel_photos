@@ -32,7 +32,7 @@ export default function Page({ params }: { params: { groupId: string } }) {
           }}
         />
       )}
-      <div className="fixed bottom-0 flex items-center justify-center w-full bg-black">
+      <div className="fixed bottom-0 flex items-center justify-center w-full bg-black px-2">
         <Link
           href={`/group/${params.groupId}/home`}
           className="left-0.5 text-white basis-1/4 mr-3"
@@ -74,14 +74,13 @@ export default function Page({ params }: { params: { groupId: string } }) {
           />
         </div>
         <button
-          className="basis-1/4 flex justify-center"
+          className="basis-1/4 flex justify-center pl-8"
           onClick={() => {
             camera.current?.switchCamera();
           }}
         >
-          <MdOutlineCameraswitch className="text-center" />
+          <MdOutlineCameraswitch className="text-3xl" />
         </button>
-        <div className="basis-1/4" />
       </div>
     </div>
   );
