@@ -7,6 +7,7 @@ import { FiChevronLeft } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
+import Link from "next/link";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -23,6 +24,7 @@ const Header: React.FC = () => {
       <button className="p-4" onClick={() => router.back()}>
         <FiChevronLeft size={24} />
       </button>
+      <Link href="/home">travel timeline</Link>
       {user != null && (
         <div className="m-4 dropdown dropdown-bottom dropdown-end">
           <label tabIndex={0} className="cursor-pointer hover:opacity-80">
