@@ -22,6 +22,17 @@ function DateTransformer(date_string: string) {
   return formattedDate
 }
 
+// 写真の総枚数カウント
+function countPhotos(albums: any[]){
+  let count = 0;
+  for (var i = 0; i < albums.length; i++){
+    for (var j = 0; j < albums[i].length; j++){
+      count++;
+    }
+  }
+  return count
+}
+
 export default async function Page({ params: { groupId } }: PageProps) {
   const group = await getGroup(groupId);
 
@@ -33,7 +44,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
           <div>
             <p className="text-2xl font-bold">{group.name}</p>
             <p className="text-zinc-400">
-              ?枚の写真・{group.users.length}人のメンバー
+              {countPhotos(DUMMY_ALBUMS)}枚の写真・{group.users.length}人のメンバー
             </p>
           </div>
           <div className="absolute top-5 right-5">
@@ -63,7 +74,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
         {/* mapでループさせる */}
         {/* 時間ごとの塊 */}
         {DUMMY_ALBUMS.map((segment_album, index) => 
-          <div className="px-2  bg-[url('../../public/timeline_border.png')] bg-cover mt-5">
+          <div key={index} className="px-2  bg-[url('../../public/timeline_border.png')] bg-cover mt-5">
             {/* 場所と時間 */}
             <div className="py-1 mx-10 relative">
               {/* とりあえず1枚目の画像の情報を流用 */}
@@ -78,13 +89,14 @@ export default async function Page({ params: { groupId } }: PageProps) {
 
             <div className="flex py-5 ml-5 overflow-auto flex-nowrap">
               {segment_album.map(
-                (photo) =>
+                (photo, photo_index) =>
                 
-                <div className="mx-2 mb-5 shrink-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                <div key={photo_index} className="mx-2 mb-5 shrink-0">
+                  <Image
                     src={photo.url}
                     alt={photo.location}
+                    width={64}
+                    height={48}
                     className="block object-cover w-64 h-48 rounded-md"
                   />
                 </div>
