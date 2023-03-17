@@ -25,8 +25,8 @@ const Header: React.FC = () => {
   return (
     <header
       className={
-        "fixed inset-x-0 top-0 z-30 flex items-center justify-between h-16 bg-white " +
-        (!showHeader ? "shadow-header" : "")
+        "fixed inset-x-0 top-0 z-30 flex items-center justify-between bg-white transition-all " +
+        (!showHeader ? "shadow-header h-12" : "h-16")
       }
     >
       <button className="p-4" onClick={() => router.back()}>
