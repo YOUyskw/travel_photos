@@ -13,7 +13,6 @@ export default function Page() {
           <div>
             <p className="text-2xl font-bold">グループ名をここに</p>
             <p className="text-zinc-500">?枚の写真・?人のメンバー</p>
-            <p></p>
           </div>
           <div className="absolute top-5 right-20">
             <FiShare />
@@ -26,7 +25,7 @@ export default function Page() {
           <div className="py-1 mx-10 relative">
             <p className="text-zinc-500">日付 + 時間</p>
             <p className="text-2xl font-bold">行った場所 + 付近</p>
-            <a href="/" className="absolute top-5 right-0">
+            <a href="./1" className="absolute top-5 right-0">
               <AiOutlineArrowRight />
             </a>
           </div>
@@ -80,9 +79,9 @@ export default function Page() {
            <div className="py-1 mx-10 relative">
               <p className="text-zinc-500">日付 + 時間</p>
               <p className="text-2xl font-bold">行った場所 + 付近</p>
-              <div className="absolute top-5 right-0">
+              <a href="./2" className="absolute top-5 right-0">
                 <AiOutlineArrowRight />
-              </div>
+              </a>
             </div>
           {/* 写真 */}
           <div className="flex py-3 ml-5 overflow-auto flex-nowrap">
