@@ -1,13 +1,19 @@
 import { FiShare } from "react-icons/fi";
+import Header from "@/components/Header";
+import { AiOutlineArrowRight } from "react-icons/ai"
+import { AiOutlineCamera } from "react-icons/ai"
 
 export default function Page() {
+
   return (
     <>
-      <main className="m-6">
+      <Header />
+      <div className="mx-6 my-24">
         <div className="relative my-5">
           <div>
-            <p className="text-2xl font-bold">アルバム名をここに</p>
+            <p className="text-2xl font-bold">グループ名をここに</p>
             <p className="text-zinc-500">?枚の写真・?人のメンバー</p>
+            <p></p>
           </div>
           <div className="absolute top-5 right-20">
             <FiShare />
@@ -17,9 +23,12 @@ export default function Page() {
         {/* 時間ごとの塊 */}
         <div className="px-20  bg-[url('../../public/timeline_border.png')] bg-cover">
           {/* 場所と時間 */}
-          <div className="py-1 mx-10">
+          <div className="py-1 mx-10 relative">
             <p className="text-zinc-500">日付 + 時間</p>
             <p className="text-2xl font-bold">行った場所 + 付近</p>
+            <a href="/" className="absolute top-5 right-0">
+              <AiOutlineArrowRight />
+            </a>
           </div>
           {/* 写真 */}
           <div className="flex py-5 ml-5 overflow-auto flex-nowrap">
@@ -68,10 +77,13 @@ export default function Page() {
         {/* 時間ごとの塊 */}
         <div className="px-20  bg-[url('../../public/timeline_border.png')] bg-cover">
           {/* 場所と時間 */}
-          <div className="py-1 mx-10">
-            <p className="text-zinc-500">日付 + 時間</p>
-            <p className="text-2xl font-bold">行った場所 + 付近</p>
-          </div>
+           <div className="py-1 mx-10 relative">
+              <p className="text-zinc-500">日付 + 時間</p>
+              <p className="text-2xl font-bold">行った場所 + 付近</p>
+              <div className="absolute top-5 right-0">
+                <AiOutlineArrowRight />
+              </div>
+            </div>
           {/* 写真 */}
           <div className="flex py-3 ml-5 overflow-auto flex-nowrap">
             <div className="mx-5 mb-5 shrink-0">
@@ -115,7 +127,14 @@ export default function Page() {
             </div>
           </div>
         </div>
-      </main>
+
+        {/* カメラへのリンク */}
+        <div className="sticky bottom-0 text-white">
+          <a href="./camera" className="text-5xl absolute bottom-5 right-20 rounded-full border-orange-500 border p-2 bg-orange-500"><AiOutlineCamera /></a>
+        </div>
+
+        
+      </div>
     </>
   );
 }
