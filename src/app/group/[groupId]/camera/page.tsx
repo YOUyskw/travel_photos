@@ -9,18 +9,29 @@ import { MdOutlineCameraswitch } from "react-icons/md";
 export default function Page({ params }: { params: { groupId: string } }) {
   const camera = useRef<CameraType>(null);
   const user = useUser();
+  const [showOverlay, setShowOverlay] = useState(true);
 
+  function handlePictureButtonClick() {
+    setShowOverlay(false);
+    setTimeout(() => setShowOverlay(true), 100); // set the delay time (in milliseconds) to adjust how long the black screen appears
+  }
+  const playShutterSound = () => {
+    const audio = new Audio("/shutter-sound.mp3");
+    audio.play();
+  };
   return (
-    <div>
-      <Camera
-        ref={camera}
-        errorMessages={{
-          noCameraAccessible: undefined,
-          permissionDenied: undefined,
-          switchCamera: undefined,
-          canvas: undefined,
-        }}
-      />
+    <div className="bg-black">
+      {showOverlay && (
+        <Camera
+          ref={camera}
+          errorMessages={{
+            noCameraAccessible: undefined,
+            permissionDenied: undefined,
+            switchCamera: undefined,
+            canvas: undefined,
+          }}
+        />
+      )}
       <div className="fixed bottom-0 flex items-center justify-center w-full bg-black">
         <Link
           href={`/group/${params.groupId}/home`}
@@ -33,6 +44,8 @@ export default function Page({ params }: { params: { groupId: string } }) {
             onClick={() => {
               if (!camera.current || user == null) return;
               const image = camera.current?.takePhoto();
+              handlePictureButtonClick();
+              playShutterSound();
               const groupId = params.groupId;
               if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
@@ -57,7 +70,7 @@ export default function Page({ params }: { params: { groupId: string } }) {
                 });
               }
             }}
-            className="z-20 w-20 h-20 my-auto bg-white border-2 border-black rounded-full"
+            className="z-20 w-20 h-20 my-auto bg-white border-2 border-black rounded-full active:bg-gray-400"
           />
         </div>
         <button

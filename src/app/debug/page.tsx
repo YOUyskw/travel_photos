@@ -2,7 +2,13 @@
 
 import Header from "@/components/Header";
 import { useUser } from "@/provider/AuthStateProvider";
-import { createGroup, getGroup, getGroups, joinGroup } from "@/repo/group";
+import {
+  createGroup,
+  getGroup,
+  getGroupLatestPhoto,
+  getGroups,
+  joinGroup,
+} from "@/repo/group";
 import { savePhoto, getPhoto } from "@/repo/photo";
 
 export default function Page() {
@@ -93,6 +99,18 @@ export default function Page() {
             }}
           >
             {`getPhoto()`}
+          </button>
+        </section>
+        <section className="mt-4">
+          <h2>getGroupLatestPhoto</h2>
+          <button
+            className="mt-1 normal-case btn"
+            onClick={async () => {
+              const res = await getGroupLatestPhoto("4xGsmi3DUTHRbuQ9y3CA");
+              console.log(res);
+            }}
+          >
+            {`getGroupLatestPhoto()`}
           </button>
         </section>
       </div>

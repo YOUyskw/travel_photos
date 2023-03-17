@@ -4,6 +4,9 @@ import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import { setDoc } from "firebase/firestore";
 import { nanoid } from "nanoid";
 
+const GROUPING_API_ENDPOINT =
+  process.env.NEXT_PUBLIC_GROUPING_API_ENDPOINT ?? "http://localhost:5000";
+
 type Location = {
   longitude: number;
   latitude: number;
@@ -43,6 +46,8 @@ export const savePhoto = async ({
     }
   );
 
+  //await fetch(GROUPING_API_ENDPOINT);
+
   return id;
 };
 
@@ -61,11 +66,16 @@ export const getPhoto = async (groupId: string, photoId: string) => {
   const snapshot2 = await getDoc(
     doc(collection(db, "user"), "KL1eTfRwVFOZfxcgza5SWExlOHz2")
   );
-  const user = snapshot2.data();
+  const user = {
+    id: snapshot2.id,
+    ...(snapshot2.data() ?? {}),
+  };
   return {
+    id: snapshot.id,
     address: data?.address as string,
     createdAt: data?.createdAt.toDate() as Date,
     createdBy: user as {
+      id: string;
       name: string;
       iconUrl: string;
     },

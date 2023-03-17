@@ -66,7 +66,7 @@ export default function Page() {
             完了
           </button>
           {errorMessage && (
-            <div className="fixed inset-x-0 shadow-lg alert alert-error top-5">
+            <div className="fixed inset-x-0 shadow-lg alert alert-error top-32">
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
