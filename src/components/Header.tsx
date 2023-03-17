@@ -19,7 +19,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 flex items-center justify-between h-16 bg-white">
+    <header className="fixed inset-x-0 top-0 z-30 flex items-center justify-between h-16 bg-white">
       <button className="p-4" onClick={() => router.back()}>
         <FiChevronLeft size={24} />
       </button>

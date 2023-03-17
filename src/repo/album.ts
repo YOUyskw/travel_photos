@@ -17,3 +17,7 @@ export const getAlbums = (
 }[][] => {
   return DUMMY_ALBUMS;
 };
+
+export const getAlbum = async (groupId: string, albumId: string) => {
+  return DUMMY_ALBUMS[parseInt(albumId, 10)];
+};
