@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import { getAlbum } from "@/repo/album";
 import Image from "next/image";
+import Link from "next/link";
 
 type PageProps = {
   params: { groupId: string; albumId: string };
@@ -22,14 +23,16 @@ export default async function Page({
           </div>
           <div className="grid grid-cols-3 gap-1">
             {alubm.map((photo) => (
-              <div className="relative aspect-square" key={photo.id}>
-                <Image
-                  src={photo.url}
-                  alt="cute dog"
-                  className="block object-cover w-48 h-48 bg-gray-100"
-                  fill
-                />
-              </div>
+              <Link key={photo.id} href={`/group/${groupId}/photo/${photo.id}`}>
+                <div className="relative aspect-square" key={photo.id}>
+                  <Image
+                    src={photo.url}
+                    alt="cute dog"
+                    className="block object-cover w-48 h-48 bg-gray-100"
+                    fill
+                  />
+                </div>
+              </Link>
             ))}
           </div>
         </main>
