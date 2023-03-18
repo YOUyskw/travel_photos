@@ -58,7 +58,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
         <div className="relative mt-[140px]">
           <div>
             <p
-              className="text-2xl font-bold"
+              className="text-2xl font-bold pr-[80px]"
               style={{ textShadow: "white 1px 0 10px" }}
             >
               {group.name}
@@ -68,7 +68,10 @@ export default async function Page({ params: { groupId } }: PageProps) {
               人のメンバー
             </p>
           </div>
-          <ShareButton />
+          <div className="absolute top-0 right-0 flex items-center space-x-2">
+            <ShareButton />
+            <DeduplicateButton groupId={groupId} />
+          </div>
         </div>
         <div className="relative flex mt-2 mb-4 -space-x-2 rounded-full w-max">
           {group.users.map((user) => {
@@ -85,8 +88,6 @@ export default async function Page({ params: { groupId } }: PageProps) {
             );
           })}
         </div>
-
-        {/* <DeduplicateButton groupId={groupId} /> */}
 
         <hr
           style={{ width: `calc(100% + 48px)`, transform: "translateX(-24px)" }}
