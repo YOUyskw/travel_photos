@@ -7,6 +7,7 @@ import Link from "next/link";
 import { getAlbums } from "@/repo/album";
 import ShareButton from "./ShareButton";
 import JoinGroup from "./JoinGroup";
+import DeduplicateButton from "./DeduplicateButton";
 
 type PageProps = {
   params: { groupId: string };
@@ -57,7 +58,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
         <div className="relative mt-[140px]">
           <div>
             <p
-              className="text-2xl font-bold"
+              className="text-2xl font-bold pr-[80px]"
               style={{ textShadow: "white 1px 0 10px" }}
             >
               {group.name}
@@ -67,7 +68,10 @@ export default async function Page({ params: { groupId } }: PageProps) {
               人のメンバー
             </p>
           </div>
-          <ShareButton />
+          <div className="absolute top-0 right-0 flex items-center space-x-2">
+            <ShareButton />
+            <DeduplicateButton groupId={groupId} />
+          </div>
         </div>
         <div className="relative flex mt-2 mb-4 -space-x-2 rounded-full w-max">
           {group.users.map((user) => {
@@ -117,7 +121,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
               {segment_album.map((photo, photo_index) => (
                 <Link
                   key={photo_index}
-                  className="mx-2 mb-5 shrink-0 first:pl-[64px] last:pr-[32px]"
+                  className="mx-2 mb-5 shrink-0 first:pl-[64px] last:pr-[32px] active:scale-95 transition"
                   href={`/group/${groupId}/photo/${photo.id}`}
                 >
                   <Image

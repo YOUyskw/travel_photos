@@ -26,7 +26,7 @@ export default async function Page({
           <img
             src={photo.downloadUrl}
             alt=""
-            className="w-full object-contain max-h-[70vh] z-10"
+            className="w-full object-contain max-h-[70vh] z-10 min-h-[400px]"
           />
         </div>
         <div className="p-2 text-right text-gray-400">
