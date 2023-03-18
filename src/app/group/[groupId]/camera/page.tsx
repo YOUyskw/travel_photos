@@ -32,6 +32,7 @@ export default function Page({ params }: { params: { groupId: string } }) {
       {showOverlay && (
         <Camera
           ref={camera}
+          facingMode="environment"
           errorMessages={{
             noCameraAccessible: undefined,
             permissionDenied: undefined,
