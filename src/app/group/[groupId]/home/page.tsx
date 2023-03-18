@@ -7,6 +7,7 @@ import Link from "next/link";
 import { getAlbums } from "@/repo/album";
 import ShareButton from "./ShareButton";
 import JoinGroup from "./JoinGroup";
+import DeduplicateButton from "./DeduplicateButton";
 
 type PageProps = {
   params: { groupId: string };
@@ -85,6 +86,8 @@ export default async function Page({ params: { groupId } }: PageProps) {
           })}
         </div>
 
+        {/* <DeduplicateButton groupId={groupId} /> */}
+
         <hr
           style={{ width: `calc(100% + 48px)`, transform: "translateX(-24px)" }}
           className="mb-2"
@@ -117,7 +120,7 @@ export default async function Page({ params: { groupId } }: PageProps) {
               {segment_album.map((photo, photo_index) => (
                 <Link
                   key={photo_index}
-                  className="mx-2 mb-5 shrink-0 first:pl-[64px] last:pr-[32px]"
+                  className="mx-2 mb-5 shrink-0 first:pl-[64px] last:pr-[32px] active:scale-95 transition"
                   href={`/group/${groupId}/photo/${photo.id}`}
                 >
                   <Image
