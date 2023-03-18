@@ -123,8 +123,8 @@ export default async function Page({ params: { groupId } }: PageProps) {
                   <Image
                     src={photo.downloadUrl}
                     alt=""
-                    width={64}
-                    height={48}
+                    width={256}
+                    height={192}
                     className="block object-cover w-64 h-48 rounded-md"
                   />
                 </Link>
