@@ -5,6 +5,7 @@ import Link from "next/link";
 
 // 日付フォーマット
 function DateTransformer(date: Date) {
+  date.setHours(date.getHours() + 9);
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const hours = date.getHours();
