@@ -17,7 +17,7 @@ const DeduplicateButton: React.FC<DeduplicateButtonProps> = ({ groupId }) => {
     <div className="m-4 dropdown dropdown-bottom dropdown-end">
       <label
         tabIndex={0}
-        className="block p-2 ml-auto transition rounded-full cursor-pointer active:scale-90 bg-white/30"
+        className="block p-2 ml-auto transition rounded-full cursor-pointer active:scale-90 bg-white/30 backdrop-blur"
       >
         <FiMoreHorizontal />
       </label>
